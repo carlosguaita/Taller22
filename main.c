@@ -8,7 +8,7 @@ int main (int argc, char *argv[]) {
     int stock[5];
     float precio[5];
     float total_ganancias = 0, venta = 0;
-    int opc1, cont=0, cantidad;
+    int opc1, cont=0, cantidad, len;
 
     do{
         printf("Selecciones una opcion:\n");
@@ -31,6 +31,10 @@ int main (int argc, char *argv[]) {
                 printf("Ingrese el nombre del producto %d: ", cont);
                 fflush(stdin);
                 fgets(nombres[cont], 30, stdin);
+
+                len = strlen(nombres[cont]) - 1;
+                nombres[cont][len]='\0';
+
                 printf("Ingrese el stock del producto %d: ", cont);
                 scanf("%d", &stock[cont]);
                 printf("Ingrese el precio del producto %d: ", cont);
@@ -43,22 +47,29 @@ int main (int argc, char *argv[]) {
          
             printf("Seleccione el producto que desea vender\n");
             printf("ID\t\tNombre\t\tStock\t\tPrecio\n");
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < cont; i++)
             {
                 printf("%s\t\t%s\t\t%d\t\t%f\n",id[i],nombres[i],stock[i],precio[i]);
             }
             scanf("%s",&naux);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < cont; i++)
             {
                 if (strcmp(id[i], naux) == 0)
                 {
-                    printf("Ingrese la cantidad de prodcuto a vender: ");
+                    printf("Ingrese la cantidad de producto a vender: ");
                     scanf("%d", &cantidad);
                     if (cantidad <= stock[i])
                     {
                         venta = cantidad * precio[i];
-                        printf("EL valor de la venta es: %f\n", venta);
+                        printf("El valor de la venta es: %f\n", venta);
+                        if (cantidad > 20)
+                        {
+                            printf("Se aplica un descuento por cantidad superior a 20 unidades\n");
+                            venta*=0.9;
+                            printf("El valor de la venta con descuento es: %f\n",venta);
+                        }
                         total_ganancias += venta;
+                        stock[i]-=cantidad;
                     }
                     else
                     {
