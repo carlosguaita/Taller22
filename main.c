@@ -51,6 +51,7 @@ int main (int argc, char *argv[]) {
             {
                 printf("%s\t\t%s\t\t%d\t\t%f\n",id[i],nombres[i],stock[i],precio[i]);
             }
+            printf(">> ");
             scanf("%s",&naux);
             for (int i = 0; i < cont; i++)
             {
